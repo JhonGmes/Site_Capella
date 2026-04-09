@@ -16,7 +16,8 @@ export default function Doacoes() {
     
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/doacao/pix', {
+      const { API_URL } = useSiteConfig();
+      const response = await fetch(`${API_URL}/api/doacao/pix`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ valor, categoria })

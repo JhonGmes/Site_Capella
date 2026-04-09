@@ -18,7 +18,8 @@ export default function CampanhaDetalhe() {
   if (!campanha) return <div className="pt-32 text-center text-white">Campanha não encontrada.</div>;
 
   const gerarPix = () => {
-    fetch('http://localhost:3001/api/doacao/pix', {
+    const { API_URL } = useSiteConfig();
+    fetch(`${API_URL}/api/doacao/pix`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ valor, categoria: campanha.titulo })
