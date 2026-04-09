@@ -6,7 +6,7 @@ import {
   Lock, User, ChevronRight, Image, Type, FileText, DollarSign
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:3001');
+const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:3001');
 
 // ───── LOGIN SCREEN ─────
 function LoginScreen({ onLogin }) {
