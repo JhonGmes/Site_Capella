@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const crypto = require('crypto');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const { createClient } = require('@supabase/supabase-js');
@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 3001;
 
 // --- Supabase Setup ---
 const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_KEY || ''
+  process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
+  process.env.SUPABASE_KEY || 'placeholder'
 );
 
 // --- Security Middleware ---
