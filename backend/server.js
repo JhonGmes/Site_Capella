@@ -29,16 +29,25 @@ const loginLimiter = rateLimit({
 });
 
 // --- Helpers ---
+const fs = require('fs');
+const path = require('path');
+
 async function readConfig() {
   const { data, error } = await supabase
     .from('site_configs')
     .select('config')
     .single();
   
-  if (error) {
-    console.error('Erro Supabase (Read):', error);
-    // Caso a tabela esteja vazia, retornar um erro ou fallback
-    throw new Error('Não foi possível carregar as configurações do banco.');
+  if (error || !data) {
+    console.error('Erro Supabase (Read):', error?.message || 'Tabela vazia');
+    try {
+      const fallbackPath = path.join(__dirname, 'data', 'siteConfig.json');
+      const fallbackData = fs.readFileSync(fallbackPath, 'utf-8');
+      return JSON.parse(fallbackData);
+    } catch (fsErr) {
+      console.error('Erro Fallback Local:', fsErr.message);
+      throw new Error('Não foi possível carregar as configurações do banco nem do fallback.');
+    }
   }
   return data.config;
 }

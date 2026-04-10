@@ -26,6 +26,6 @@ dist-ssr/
 Thumbs.db
 
 # Project specific
-backend/data/siteConfig.json
+
 lint_results.txt
 frontend/eslint_report.txt

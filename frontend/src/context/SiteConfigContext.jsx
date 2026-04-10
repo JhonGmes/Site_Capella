@@ -12,8 +12,17 @@ export function SiteConfigProvider({ children }) {
 
   useEffect(() => {
     fetch(`${API_URL}/api/config`)
-      .then(res => res.json())
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok || data.erro) {
+          throw new Error(data.erro || 'Falha ao carregar as configurações');
+        }
+        return data;
+      })
       .then(data => {
+        if (!data || !data.header || !data.header.menuItems) {
+          throw new Error('Configuração inválida retornada pelo servidor');
+        }
         setConfig(data);
         setLoading(false);
       })
